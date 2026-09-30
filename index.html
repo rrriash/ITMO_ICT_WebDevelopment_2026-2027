@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>ЛР1 - Сокеты</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/fontawesome.min.css" rel="stylesheet">
+        <link href="css/brands.min.css" rel="stylesheet">
+        <link href="css/solid.min.css" rel="stylesheet">
+        <link href="css/v4-font-face.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">ЛР1 - Сокеты</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#1" class="nav-link">ЛР1. Сокеты</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_1" class="nav-link">Модель данных</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#1_1" class="nav-link">Задание 1</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#2" class="nav-link">Задание 2</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#3" class="nav-link">Задание 3</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#4" class="nav-link">Задание 4</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#5" class="nav-link">Задание 5</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#http-" class="nav-link">HTTP-эндпоинты</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">Проверка</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_3" class="nav-link">Вывод</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="1">ЛР1. Сокеты</h1>
+<p>Цель работы - реализовать обмен данными между клиентом и сервером через UDP и TCP, а также обработать HTTP-запросы.
+Используется Python и стандартная библиотека socket.</p>
+<h2 id="_1">Модель данных</h2>
+<p>В задании 1 передаются текстовые сообщения. В задании 2 основание и высота преобразуются в числа типа <code>float</code>. В задании 3 сервер читает HTML из файла <code>index.html</code>.</p>
+<p>В чате словарь <code>users</code> хранит подключённые сокеты и имена пользователей. К имени добавляется порт клиента. При отключении запись удаляется. Блокировка <code>users_lock</code> защищает общий словарь при работе потоков.</p>
+<p>В журнале словарь <code>journal</code> хранит название дисциплины как ключ и список целочисленных оценок как значение. Оценки находятся в памяти до остановки сервера.</p>
+<h2 id="1_1">Задание 1</h2>
+<p>В <code>task1</code> находятся UDP-сервер и клиент. Клиент отправляет <code>Hello, server</code>, сервер выводит сообщение и отвечает <code>Hello, client</code>. Ответ выводится у клиента. Для обмена используются <code>sendto()</code> и <code>recvfrom()</code>.
+Адрес сервера: <code>127.0.0.1:8001</code>.</p>
+<p>Ключевой блок сервера:</p>
+<pre><code class="language-python">message, peer_address = server_socket.recvfrom(4096)
+print(message.decode('utf-8'), flush=True)
+server_socket.sendto(b'Hello, client', peer_address)
+</code></pre>
+<h2 id="2">Задание 2</h2>
+<p>Реализован вариант 4 — площадь параллелограмма. Формула: <code>S = a * h</code>.</p>
+<p>Клиент из <code>task2</code> запрашивает основание и высоту, отправляет их серверу через TCP. Сервер вычисляет площадь и возвращает результат. Сообщения заканчиваются переводом строки.
+При основании 5 и высоте 3 получен ответ <code>Площадь параллелограмма: 15</code>.
+Порт: 8002.</p>
+<p>Вычисление и отправка результата на сервере:</p>
+<pre><code class="language-python">base, height = map(float, stream.readline().split())
+area = base * height
+peer.sendall(f'Площадь параллелограмма: {area:g}\n'.encode('utf-8'))
+</code></pre>
+<h2 id="3">Задание 3</h2>
+<p>Сервер <code>task3/server.py</code> читает <code>index.html</code> и отправляет HTTP-ответ с кодом 200. Заголовок <code>Content-Length</code> содержит длину HTML в байтах. После заголовков идёт пустая строка, затем содержимое файла.</p>
+<p>При запущенном сервере страница доступна по адресу http://127.0.0.1:8003.</p>
+<p>Формирование HTTP-ответа:</p>
+<pre><code class="language-python">content = PAGE.read_bytes()
+header_data = (
+    'HTTP/1.1 200 OK\r\n'
+    'Content-Type: text/html; charset=utf-8\r\n'
+    f'Content-Length: {len(content)}\r\n'
+    'Connection: close\r\n\r\n'
+)
+peer.sendall(header_data.encode('ascii') + content)
+</code></pre>
+<p>Результат открытия страницы в браузере:</p>
+<p><img alt="HTML-страница, полученная от сервера" src="images/task3.png" /></p>
+<h2 id="4">Задание 4</h2>
+<p>В <code>task4</code> реализован многопользовательский TCP-чат на порту 8004. Один и тот же клиент запускается в нескольких терминалах. Имя вводится с клавиатуры, к нему добавляется порт подключения для различения одинаковых имён.</p>
+<p>На сервере каждому клиенту выделяется поток <code>threading.Thread</code>. Подключения хранятся в словаре, доступ к нему защищён блокировкой. Сообщение отправляется всем, кроме автора.
+Клиент получает сообщения в отдельном потоке. Для выхода используется <code>/exit</code>, после отключения сервер удаляет участника.</p>
+<p>Поток для каждого подключения:</p>
+<pre><code class="language-python">peer, peer_address = server_socket.accept()
+threading.Thread(target=handle_client, args=(peer, peer_address), daemon=True).start()
+</code></pre>
+<p>Обработка сообщения и команды выхода:</p>
+<pre><code class="language-python">for line in stream:
+    message = line.rstrip('\r\n')
+    if message == '/exit':
+        break
+    if message:
+        send_to_all(f'{name}: {message}', peer)
+</code></pre>
+<h2 id="5">Задание 5</h2>
+<p>Сервер <code>task5/server.py</code> вручную разбирает HTTP-запросы. <code>GET /</code> возвращает форму и таблицу оценок, <code>POST /</code> добавляет оценку и возвращает обновлённую страницу. Тело POST читается по <code>Content-Length</code>.
+При запущенном сервере журнал доступен по адресу http://127.0.0.1:8005.</p>
+<p>Пример состояния словаря <code>journal</code> после ввода оценок, показанных на скриншоте:</p>
+<pre><code class="language-python">{
+  &quot;Математика&quot;: [5, 4],
+  &quot;Физика&quot;: [3]
+}
+</code></pre>
+<p>Для каждого предмета в таблице одна строка. После перезапуска сервера журнал очищается.</p>
+<p>Разбор тела POST и добавление оценки:</p>
+<pre><code class="language-python">if method == 'POST':
+    body = incoming.read(int(headers['content-length']))
+    form = parse_qs(body.decode('utf-8'))
+    subject = form['subject'][0]
+    grade = int(form['grade'][0])
+    journal.setdefault(subject, []).append(grade)
+</code></pre>
+<p>Журнал после добавления двух оценок по математике и одной по физике:</p>
+<p><img alt="Журнал с группировкой оценок по дисциплинам" src="images/task5.png" /></p>
+<h2 id="http-">HTTP-эндпоинты</h2>
+<table>
+<thead>
+<tr>
+<th>Задание</th>
+<th>Адрес</th>
+<th>Метод</th>
+<th>Данные запроса</th>
+<th>Ответ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td><code>http://127.0.0.1:8003/</code></td>
+<td>GET</td>
+<td>Без тела</td>
+<td><code>200 OK</code>, содержимое <code>index.html</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>http://127.0.0.1:8005/</code></td>
+<td>GET</td>
+<td>Без тела</td>
+<td><code>200 OK</code>, форма и таблица оценок</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>http://127.0.0.1:8005/</code></td>
+<td>POST</td>
+<td>Поля <code>subject</code> и <code>grade</code></td>
+<td><code>200 OK</code>, обновлённая таблица</td>
+</tr>
+</tbody>
+</table>
+<p>POST использует формат <code>application/x-www-form-urlencoded</code>. Поле <code>subject</code> содержит название дисциплины, <code>grade</code> — целочисленную оценку. Длина тела задаётся заголовком <code>Content-Length</code>. Сервер не различает пути, в таблице приведён используемый адрес <code>/</code>.</p>
+<p>В заданиях 1, 2 и 4 HTTP не используется: обмен идёт непосредственно по UDP или TCP на портах 8001, 8002 и 8004.</p>
+<h2 id="_2">Проверка</h2>
+<p>Проверены обмен UDP, вычисления с целыми и дробными числами, получение HTML и соответствие длины ответа. В чате проверены три подключения, рассылка сообщений и выход.</p>
+<p>Для журнала проверены добавление двух оценок одному предмету и группировка по дисциплинам.</p>
+<h2 id="_3">Вывод</h2>
+<p>Реализованы пять заданий: обмен UDP, вычисления TCP, выдача HTML, многопользовательский чат и журнал оценок с GET/POST.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js"></script>
+        <script src="search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.6.1
+Build Date UTC : 2026-09-30 18:58:54.849687+00:00
+-->
