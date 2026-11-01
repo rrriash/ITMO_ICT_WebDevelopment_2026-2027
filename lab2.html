@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://rrriash.github.io/ITMO_ICT_WebDevelopment_2026-2027/lab2.html">
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>ЛР2 — Django - Веб-программирование — Сафонова Арина, K3341</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/fontawesome.min.css" rel="stylesheet">
+        <link href="css/brands.min.css" rel="stylesheet">
+        <link href="css/solid.min.css" rel="stylesheet">
+        <link href="css/v4-font-face.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">Веб-программирование — Сафонова Арина, K3341</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="index.html" class="nav-link">ЛР1 — Сокеты</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="lab2.html" class="nav-link active" aria-current="page">ЛР2 — Django</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="practice.html" class="nav-link">Практики 2.1–2.3</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                            <li class="nav-item">
+                                <a rel="prev" href="index.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="practice.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#no-2-django" class="nav-link">Лабораторная работа № 2. Простой сайт на Django</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#_1" class="nav-link">Цель</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_2" class="nav-link">Задание</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_3" class="nav-link">Средства реализации</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_4" class="nav-link">Модель данных</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_5" class="nav-link">Реализованные интерфейсы</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_11" class="nav-link">Проверка</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#_12" class="nav-link">Вывод</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="no-2-django">Лабораторная работа № 2. Простой сайт на Django</h1>
+<p><strong>Выполнила:</strong> Сафонова Арина, группа K3341.<br />
+<strong>Номер в журнале:</strong> 24.<br />
+<strong>Вариант:</strong> 6 — «Табло победителей автогонок».</p>
+<h2 id="_1">Цель</h2>
+<p>Реализовать сайт средствами Django с моделью данных, пользовательскими интерфейсами и административной панелью.</p>
+<h2 id="_2">Задание</h2>
+<p><a href="https://rendex85.github.io/ITMO_ICT_WebDevelopment_Docs/lab2/assignment/">Условия лабораторной работы</a>.</p>
+<p>При циклическом распределении шести вариантов номеру 24 соответствует вариант <code>(24 - 1) % 6 + 1 = 6</code>.</p>
+<p>Необходимо хранить сведения об участниках автогонок, регистрировать пользователей и гонщиков, позволять пользователям изменять и удалять свои регистрации, оставлять комментарии с рейтингом, а администратору — указывать время заезда и результат. Для выбранной гонки требуется таблица всех заездов и результатов.</p>
+<h2 id="_3">Средства реализации</h2>
+<p>Python 3.9, Django 3.2, Jinja2, PostgreSQL. Отчет оформлен средствами MkDocs.</p>
+<p>Архитектура Django MVT соответствует разделению MVC: модели описывают данные, представления обрабатывают запросы, шаблоны формируют HTML. Обработчики основного приложения написаны функциями. Собственные страницы используют Jinja2, встроенная панель администратора — DjangoTemplates. Для оформления подключен локальный файл CSS.</p>
+<h2 id="_4">Модель данных</h2>
+<table>
+<thead>
+<tr>
+<th>Модель</th>
+<th>Содержимое</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>User</code></td>
+<td>Стандартная учетная запись Django</td>
+</tr>
+<tr>
+<td><code>Race</code></td>
+<td>Название гонки, даты начала и окончания</td>
+</tr>
+<tr>
+<td><code>Registration</code></td>
+<td>Гонка, пользователь, ФИО гонщика, команда, описание автомобиля, описание участника, опыт, класс, время заезда, результат</td>
+</tr>
+<tr>
+<td><code>Comment</code></td>
+<td>Гонка, автор, даты заезда, текст, тип комментария, рейтинг</td>
+</tr>
+</tbody>
+</table>
+<p>Регистрация связывает одного пользователя и одного гонщика с выбранной гонкой. Строка регистрации также хранит результат его заезда. Гонка и пользователь связаны с регистрациями и комментариями отношениями один-ко-многим.</p>
+<p>Время заезда хранится в <code>DurationField</code>, результат — текстом. В комментарии сохраняются даты выбранной гонки на момент добавления. Тип комментария выбирается из трех значений: вопрос о сотрудничестве, вопрос о гонках, иное. Допустимый рейтинг — целое число от 1 до 10.</p>
+<h2 id="_5">Реализованные интерфейсы</h2>
+<table>
+<thead>
+<tr>
+<th>Адрес</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>Список гонок с поиском по названию и пагинацией по пять записей</td>
+</tr>
+<tr>
+<td><code>/register/</code></td>
+<td>Регистрация: имя пользователя, пароль и подтверждение пароля</td>
+</tr>
+<tr>
+<td><code>/login/</code></td>
+<td>Вход по имени пользователя и паролю</td>
+</tr>
+<tr>
+<td><code>/logout/</code></td>
+<td>Выход из учетной записи по кнопке</td>
+</tr>
+<tr>
+<td><code>/races/&lt;id&gt;/</code></td>
+<td>Таблица участников и результатов выбранной гонки, комментарии</td>
+</tr>
+<tr>
+<td><code>/races/&lt;id&gt;/register/</code></td>
+<td>Форма регистрации гонщика</td>
+</tr>
+<tr>
+<td><code>/registrations/</code></td>
+<td>Собственные регистрации пользователя</td>
+</tr>
+<tr>
+<td><code>/registrations/&lt;id&gt;/edit/</code></td>
+<td>Изменение данных гонщика в своей регистрации</td>
+</tr>
+<tr>
+<td><code>/registrations/&lt;id&gt;/delete/</code></td>
+<td>Подтверждение удаления своей регистрации</td>
+</tr>
+<tr>
+<td><code>/races/&lt;id&gt;/comment/</code></td>
+<td>Добавление текста, типа комментария и рейтинга</td>
+</tr>
+<tr>
+<td><code>/registrations/&lt;id&gt;/result/</code></td>
+<td>Ввод времени заезда и результата администратором на клиенте</td>
+</tr>
+<tr>
+<td><code>/admin/</code></td>
+<td>Стандартная панель Django для управления моделями</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6">Список гонок, поиск и пагинация</h3>
+<p>Поле «Название гонки» фильтрует гонки по части названия без учета регистра. Поиск реализован через <code>name__icontains</code>. Кнопка «Сбросить» возвращает полный список.</p>
+<p>Используется базовый <code>Paginator</code>: пять гонок на странице, ссылки «Назад» и «Далее», номер текущей страницы. Фильтрация выполняется до разбиения на страницы. Параметр <code>q</code> сохраняется в ссылках перехода. Если совпадений нет, выводится «Гонки не найдены».</p>
+<h3 id="_7">Регистрация и вход</h3>
+<p>Для создания пользователя применяется <code>UserCreationForm</code>, для входа — <code>AuthenticationForm</code>. После регистрации выполняется вход. Пароли сохраняются стандартными средствами Django в виде хеша.</p>
+<h3 id="_8">Регистрация гонщика</h3>
+<p>На странице выбранной гонки пользователь открывает форму с ФИО, командой, описаниями автомобиля и участника, опытом и классом. Гонка задается адресом страницы, владелец регистрации — текущим пользователем.</p>
+<p>Раздел «Мои регистрации» показывает только собственные записи. Изменение позволяет исправить сведения о гонщике. Удаление выполняется после подтверждения формы. Время и результат не входят в пользовательскую форму.</p>
+<h3 id="_9">Таблица гонки и комментарии</h3>
+<p>Таблица включает ФИО, команду, автомобиль, описание участника, опыт, класс, время и результат. Выводятся все регистрации именно выбранной гонки. До заполнения результата показано, что он не указан.</p>
+<p>Под таблицей находятся комментарии: автор, тип, рейтинг, даты заезда и текст. Отправка комментария доступна после входа. Автор и даты записываются автоматически.</p>
+<h3 id="_10">Администрирование</h3>
+<p>Администратор может указать время и результат в форме регистрации через Django-admin. В клиентском интерфейсе ему дополнительно доступна ссылка «Указать результат» в таблице гонки. Она открывает форму времени в формате <code>ЧЧ:ММ:СС</code> и текстового результата.</p>
+<p>Признаки <code>is_staff</code> / <code>is_superuser</code> проверяются в шаблоне и обработчике. Изменение или удаление регистрации обычным пользователем выполняется только для записи с <code>user=request.user</code>. Формы используют штатную CSRF-защиту.</p>
+<h2 id="_11">Проверка</h2>
+<p>Проверены регистрация и вход пользователя, просмотр гонок, создание, изменение и удаление собственной регистрации, недоступность чужих регистраций, добавление комментариев, границы рейтинга 1–10, ввод результата через клиент и Django-admin. Проверено, что таблица содержит записи только выбранной гонки. Миграции и сборка MkDocs выполняются без ошибок.</p>
+<p>Дополнительно реализованы собственные CSS-стили, базовая пагинация, поиск и фильтрация гонок по названию, разграничение прав администратора и пользователя в клиентском интерфейсе. Проверены фильтрация без учета регистра, пустая выдача и сохранение поискового запроса при переходе между страницами.</p>
+<h2 id="_12">Вывод</h2>
+<p>Реализованы функции варианта 6, модель PostgreSQL, шаблоны Jinja2, разграничение действий пользователя и администратора. Подготовлены <a href="practice.html">практики 2.1–2.3</a>. Инструкция запуска находится в <a href="https://github.com/rrriash/ITMO_ICT_WebDevelopment_2026-2027/blob/lab2/students/K3341/laboratory_works/Safonova_Arina/laboratory_work_2/README.md">README проекта</a>.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js"></script>
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
